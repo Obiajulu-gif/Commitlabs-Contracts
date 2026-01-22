@@ -7,6 +7,7 @@ edition = "2021"
 # It should only be built for native targets (not wasm)
 
 [dev-dependencies]
+# Use the same soroban-sdk version as the contracts
 soroban-sdk = { version = "21.0.0", features = ["testutils"] }
 commitment_nft = { path = "../../contracts/commitment_nft" }
 commitment_core = { path = "../../contracts/commitment_core" }

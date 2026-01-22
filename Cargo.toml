@@ -3,8 +3,9 @@ members = [
     "contracts/commitment_nft",
     "contracts/commitment_core",
     "contracts/attestation_engine",
-    "tests/integration",
 ]
+# Note: tests/integration is excluded from workspace to prevent testutils feature
+# from being enabled during WASM builds. Run integration tests separately.
 resolver = "2"
 
 [profile.release]

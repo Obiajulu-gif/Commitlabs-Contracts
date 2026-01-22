@@ -56,12 +56,9 @@ jobs:
 
       - name: Build Rust contracts with Cargo (WASM)
         run: |
-          # Build only the contract packages for WASM target (exclude integration_tests)
-          cargo build --target wasm32v1-none --release \
-            -p commitment_nft \
-            -p commitment_core \
-            -p attestation_engine
-          echo "✓ Cargo build completed successfully"
+          # Build all workspace contracts for WASM target
+          cargo build --target wasm32v1-none --release
+          echo "✓ Cargo WASM build completed successfully"
 
       - name: Build Soroban contracts with Stellar CLI
         run: |
@@ -84,10 +81,18 @@ jobs:
           done
           echo "✓ Stellar CLI build completed"
 
-      - name: Run unit and integration tests
+      - name: Run unit tests (contracts)
         run: |
+          # Run tests for all workspace contracts (native target)
           cargo test --workspace
-          echo "✓ All tests passed"
+          echo "✓ Unit tests passed"
+
+      - name: Run integration tests
+        run: |
+          # Run integration tests from their own directory (separate from workspace)
+          cd tests/integration
+          cargo test
+          echo "✓ Integration tests passed"
 
       - name: Check for build artifacts
         run: |
